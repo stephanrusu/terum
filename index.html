@@ -179,7 +179,7 @@
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 
 				scene = new THREE.Scene();
-				scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
+				scene.fog = new THREE.Fog( 0xffffff, 0, 1000 );
 
 				var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 				light.position.set( 1, 1, 1 );
@@ -216,6 +216,10 @@
 					face.vertexColors[ 1 ] = new THREE.Color().setHex(0x777777);
 					face.vertexColors[ 2 ] = new THREE.Color().setHex(0x777777);
 					face.vertexColors[ 3 ] = new THREE.Color().setHex(0x777777);
+					//face.vertexColors[ 0 ] = new THREE.Color().setHSV( Math.random() * 0.2 + 0.5, Math.random() * 0.5, 1 );
+					//face.vertexColors[ 1 ] = new THREE.Color().setHSV( Math.random() * 0.2 + 0.5, Math.random() * 0.5, 1 );
+					//face.vertexColors[ 2 ] = new THREE.Color().setHSV( Math.random() * 0.2 + 0.5, Math.random() * 0.5, 1 );
+					//face.vertexColors[ 3 ] = new THREE.Color().setHSV( Math.random() * 0.2 + 0.5, Math.random() * 0.5, 1 );
 
 				}
 
@@ -226,9 +230,8 @@
 
 				// objects
 
-				geometry = new THREE.CubeGeometry( 20, 20, 20 );
-				geometry.applyMatrix( new THREE.Matrix4().makeRotationY(-Math.PI/2 ) );
-
+				geometry = new THREE.CubeGeometry( 40, 60, 20 );
+				
 				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
 
 					var face = geometry.faces[ i ];
@@ -239,25 +242,7 @@
 					//face.vertexColors[ 3 ] = new THREE.Color().setHSV( Math.random() * 0.2 + 0.5, Math.random() * 0.5, 1 );
 
 				}
-
-				for ( var i = 0; i < 20; i ++ ) {
-
-					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
-
-					var mesh = new THREE.Mesh( geometry, material );
-					//mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
-					//mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
-					//mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
-					mesh.position.x = i*20;
-					mesh.position.y = 11;
-					mesh.position.z = -100;
-					scene.add( mesh );
-
-					material.color.setHex(0x2097c2);
-
-					objects.push( mesh );
-
-				}	
+				// begin north
 				for ( var i = 0; i < 20; i ++ ) {
 
 					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
@@ -268,15 +253,14 @@
 					//mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
 					mesh.position.x = i*20;
 					mesh.position.y = 31;
-					mesh.position.z = -100;
+					mesh.position.z = -400;
 					scene.add( mesh );
 
 					material.color.setHex(0x2097c2);
 
 					objects.push( mesh );
 
-				}	
-
+				}
 				for ( var i = 0; i < 20; i ++ ) {
 
 					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
@@ -285,16 +269,18 @@
 					//mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
 					//mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
 					//mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
-					mesh.position.x = i*20;
-					mesh.position.y = 11;
-					mesh.position.z = 100;
+					mesh.position.x = -i*20;
+					mesh.position.y = 31;
+					mesh.position.z = -400;
 					scene.add( mesh );
 
 					material.color.setHex(0x2097c2);
 
 					objects.push( mesh );
 
-				}	
+				}
+				// end north
+				// begin south 
 				for ( var i = 0; i < 20; i ++ ) {
 
 					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
@@ -305,15 +291,110 @@
 					//mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
 					mesh.position.x = i*20;
 					mesh.position.y = 31;
-					mesh.position.z = 100;
+					mesh.position.z = 400;
 					scene.add( mesh );
 
 					material.color.setHex(0x2097c2);
 
 					objects.push( mesh );
 
-				}	
-				
+				}
+				for ( var i = 0; i < 20; i ++ ) {
+
+					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
+
+					var mesh = new THREE.Mesh( geometry, material );
+					//mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
+					//mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
+					//mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
+					mesh.position.x = -i*20;
+					mesh.position.y = 31;
+					mesh.position.z = 400;
+					scene.add( mesh );
+
+					material.color.setHex(0x2097c2);
+
+					objects.push( mesh );
+
+				}
+				// end south
+				// begin east
+				for ( var i = 0; i < 20; i ++ ) {
+
+					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
+
+					var mesh = new THREE.Mesh( geometry, material );
+					//mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
+					//mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
+					//mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
+					mesh.position.x = 420;
+					mesh.position.y = 31;
+					mesh.position.z = -i*20;
+					scene.add( mesh );
+
+					material.color.setHex(0x6849c2);
+
+					objects.push( mesh );
+
+				}
+				for ( var i = 0; i < 20; i ++ ) {
+
+					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
+
+					var mesh = new THREE.Mesh( geometry, material );
+					//mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
+					//mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
+					//mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
+					mesh.position.x = 420;
+					mesh.position.y = 31;
+					mesh.position.z = i*20;
+					scene.add( mesh );
+
+					material.color.setHex(0x6849c2);
+
+					objects.push( mesh );
+
+				}
+				// end east
+				// begin west
+				for ( var i = 0; i < 20; i ++ ) {
+
+					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
+
+					var mesh = new THREE.Mesh( geometry, material );
+					//mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
+					//mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
+					//mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
+					mesh.position.x = -420;
+					mesh.position.y = 31;
+					mesh.position.z = -i*20;
+					scene.add( mesh );
+
+					material.color.setHex(0x6849c2);
+
+					objects.push( mesh );
+
+				}
+				for ( var i = 0; i < 20; i ++ ) {
+
+					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
+
+					var mesh = new THREE.Mesh( geometry, material );
+					//mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
+					//mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
+					//mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
+					mesh.position.x = -420;
+					mesh.position.y = 31;
+					mesh.position.z = i*20;
+					scene.add( mesh );
+
+					material.color.setHex(0x6849c2);
+
+					objects.push( mesh );
+
+				}
+				//end west
+
 				//
 
 				renderer = new THREE.WebGLRenderer();
