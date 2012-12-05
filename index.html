@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>three.js - pointerlock controls</title>
+		<title>Terum</title>
 		<style>
 			html, body {
 				width: 100%;
@@ -58,15 +58,16 @@
 		</style>
 	</head>
 	<body>
-		<script src="build/three.js"></script>
-		<script src="js/controls/PointerLockControls.js"></script>
+		<script src="js/three.js"></script>
+		<script src="js/PointerLockControls.js"></script>
+		<script src="js/init.js"></script>
 
 		<div id="blocker">
 
 			<div id="instructions">
-				<span style="font-size:40px">Click to play</span>
+				<span style="font-size:40px">Click to start</span>
 				<br />
-				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+				(W, A, S, D = Move, MOUSE = Look around)
 			</div>
 
 		</div>
@@ -113,8 +114,8 @@
 					if ( /Firefox/i.test( navigator.userAgent ) ) {
 						var fullscreenchange = function ( event ) {
 							if ( document.fullscreenElement === element || document.mozFullscreenElement === element || document.mozFullScreenElement === element ) {
-								document.removeEventListener( 'fullscreenchange', fullscreenchange );
-								document.removeEventListener( 'mozfullscreenchange', fullscreenchange );
+							
+							
 								element.requestPointerLock();
 							}
 						}
@@ -133,109 +134,6 @@
 			init();
 			animate();
 
-			function init() {
-				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
-				scene = new THREE.Scene();
-				scene.fog = new THREE.Fog( 0xffffff, 0, 1000 );
-				var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
-				light.position.set( 1, 1, 1 );
-				scene.add( light );
-				var light = new THREE.DirectionalLight( 0xffffff, 0.75 );
-				light.position.set( -1, - 0.5, -1 );
-				scene.add( light );
-				controls = new THREE.PointerLockControls( camera );
-				scene.add( controls.getObject() );
-				ray = new THREE.Ray();
-				ray.direction.set( 0, -1, 0 );
-				
-				// floor
-				geometry = new THREE.PlaneGeometry( 1000, 1000, 100, 100 );
-				geometry.applyMatrix( new THREE.Matrix4().makeRotationX(-Math.PI / 2 ) );
-				for ( var i = 0, l = geometry.vertices.length; i < l; i ++ ) {
-					var vertex = geometry.vertices[ i ];
-					vertex.x += Math.random();
-					vertex.y += Math.random();
-					vertex.z += Math.random();
-				}
-				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
-					var face = geometry.faces[ i ];
-					face.vertexColors[ 0 ] = new THREE.Color().setHex(0x777777);
-					face.vertexColors[ 1 ] = new THREE.Color().setHex(0x777777);
-					face.vertexColors[ 2 ] = new THREE.Color().setHex(0x777777);
-					face.vertexColors[ 3 ] = new THREE.Color().setHex(0x777777);
-				}
-				material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors } );
-				mesh = new THREE.Mesh( geometry, material );
-				scene.add( mesh );
-				
-				// objects
-				geometry = new THREE.CubeGeometry( 820, 60, 20 );
-				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
-					var face = geometry.faces[ i ];
-					face.vertexColors[ 0 ] = new THREE.Color().setHex(0xffffff);
-					face.vertexColors[ 1 ] = new THREE.Color().setHex(0xffffff);
-					face.vertexColors[ 2 ] = new THREE.Color().setHex(0xffffff);
-					face.vertexColors[ 3 ] = new THREE.Color().setHex(0xffffff);				
-				}
-				
-				// begin north
-					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
-					mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = 0;
-					mesh.position.y = 31;
-					mesh.position.z = -400;
-					scene.add( mesh );
-					material.color.setHex(0x6949c2);
-					objects.push( mesh );
-				// end north
-				// begin south 			
-					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
-					mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = 0;
-					mesh.position.y = 31;
-					mesh.position.z = 400;
-					scene.add( mesh );
-					material.color.setHex(0x6949c2);
-					objects.push( mesh );		
-				// end south
-				
-				geometry = new THREE.CubeGeometry( 20, 60, 780 );
-				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
-					var face = geometry.faces[ i ];
-					face.vertexColors[ 0 ] = new THREE.Color().setHex(0xffffff);
-					face.vertexColors[ 1 ] = new THREE.Color().setHex(0xffffff);
-					face.vertexColors[ 2 ] = new THREE.Color().setHex(0xffffff);
-					face.vertexColors[ 3 ] = new THREE.Color().setHex(0xffffff);				
-
-				}
-				
-				// begin east
-					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
-					mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = 400;
-					mesh.position.y = 31;
-					mesh.position.z = 0;
-					scene.add( mesh );
-					material.color.setHex(0x6949c2);
-					objects.push( mesh );	
-				// end east
-				// begin west
-					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
-					mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = -400;
-					mesh.position.y = 31;
-					mesh.position.z = 0;
-					scene.add( mesh );
-					material.color.setHex(0x6949c2);
-					objects.push( mesh );
-				
-				//end west
-
-				renderer = new THREE.WebGLRenderer();
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				document.body.appendChild( renderer.domElement );
-				window.addEventListener( 'resize', onWindowResize, false );
-			}
 			
 			function onWindowResize() {
 				camera.aspect = window.innerWidth / window.innerHeight;
