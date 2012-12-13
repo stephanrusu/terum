@@ -114,8 +114,6 @@
 					if ( /Firefox/i.test( navigator.userAgent ) ) {
 						var fullscreenchange = function ( event ) {
 							if ( document.fullscreenElement === element || document.mozFullscreenElement === element || document.mozFullScreenElement === element ) {
-							
-							
 								element.requestPointerLock();
 							}
 						}
