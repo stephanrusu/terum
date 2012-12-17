@@ -4,6 +4,7 @@ function init() {
 	
 	scene = new THREE.Scene();
 	scene.fog = new THREE.Fog( 0xffffff, 0, 1000 );
+
 	
 	var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 	light.position.set( 1, 1, 1 );
@@ -24,14 +25,13 @@ function init() {
 	geometry = new THREE.PlaneGeometry( 1400, 1000, 256, 256 );
 	
 
-	var texture = THREE.ImageUtils.loadTexture( "img/floor.jpg" );
+	var texture = THREE.ImageUtils.loadTexture( "img/grasslight-big.jpg" );
 	var material = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture } );
 
 	texture.anisotropy = maxAnisotropy;
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-	texture.repeat.set( 128,128 );
+	texture.repeat.set( 25,25 );
 
-	var ab = 31;
 	
 	//material = new THREE.MeshBasicMaterial( { map: texture });
 	var mesh = new THREE.Mesh( geometry, material );
@@ -40,6 +40,7 @@ function init() {
 	scene.add( mesh );
 	
 	// objects
+	var ab = 31;
 	geometry = new THREE.CubeGeometry( 1220, 60, 20 );
 
 	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading  });
