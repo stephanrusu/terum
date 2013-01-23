@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Terum</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		</style>
+
+	</head>
+	<body>
+
+		
+		
+
+		<script src="js/three.js"></script>
+		<script src="js/init-simple.js"></script>
+		<script src="js/FirstPersonControls.js"></script>
+
+		<script>			
+			var container, projector;
+
+			var camera, controls, scene, renderer;
+
+			var mesh, texture, object, cube;
+
+			var objects = [];
+			var clock = new THREE.Clock();
+
+			init();
+			animate();
+
+			
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				controls.handleResize();
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+
+
+			}
+			
+			function onDocumentMouseDown( event ) {
+
+				event.preventDefault();
+				var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+				projector.unprojectVector( vector, camera );
+				var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+				var intersects = ray.intersectObjects( objects );
+				if ( intersects.length > 0 ) {
+					intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );		
+
+				}
+
+				
+				// Parse all the faces
+				for ( var i in intersects ) {
+
+					intersects[ i ].face.material[ 0 ].color.setHex( Math.random() * 0xffffff | 0x80000000 );
+
+				}
+				
+			}
+
+			function render() {
+
+				controls.update( clock.getDelta() );
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+	</body>
+</html>

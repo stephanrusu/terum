@@ -85,16 +85,16 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 		event.preventDefault();
 		event.stopPropagation();
 
-		/*if ( this.activeLook ) {
+		if ( this.activeLook ) {
 
 			switch ( event.button ) {
 
-				case 0: this.moveForward = true; break;
-				case 2: this.moveBackward = true; break;
+				//case 0: this.moveForward = true; break;
+				//case 2: this.moveBackward = true; break;
 
 			}
 
-		}*/
+		}
 
 		this.mouseDragOn = true;
 
@@ -105,7 +105,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 		event.preventDefault();
 		event.stopPropagation();
 
-		/*if ( this.activeLook ) {
+		if ( this.activeLook ) {
 
 			switch ( event.button ) {
 
@@ -114,7 +114,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 			}
 
-		}*/
+		}
 
 		this.mouseDragOn = false;
 
